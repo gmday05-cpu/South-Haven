@@ -8,16 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Work+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1c2b2a;
-    --paper:#faf6ee;
+    --ink:#23384a;
+    --paper:#ffffff;
     --card:#ffffff;
-    --deep:#1f4e5f;
-    --deep-dark:#173c49;
-    --brass:#b8863f;
-    --brass-light:#e8c98a;
-    --line:#e4ddcc;
-    --done:#5c8a6b;
-    --shadow: 0 2px 10px rgba(23,60,73,0.08);
+    --deep:#3697c4;
+    --deep-dark:#256f94;
+    --brass:#d280be;
+    --brass-light:#f9c4d6;
+    --line:#bfcfe6;
+    --done:#feae95;
+    --accent:#d280be;
+    --shadow: 0 2px 10px rgba(54,151,196,0.14);
   }
   *{box-sizing:border-box;}
   body{
@@ -88,7 +89,7 @@
     align-items:center;
     gap:10px;
     margin-bottom:18px;
-    color:#5a6a63;
+    color:#5b7286;
     font-size:13px;
   }
   .progress-track{
@@ -193,15 +194,43 @@
     display:block;
   }
   .notes{
-    background:#f1ede1;
+    background:#eef3fa;
     border-radius:14px;
     padding:14px 16px;
     font-size:13px;
-    color:#5a6a5a;
+    color:#4d6072;
     margin-top:6px;
     line-height:1.5;
   }
   .notes strong{ color:var(--deep-dark); }
+  .milestone{
+    margin:-10px 0 18px;
+    font-size:13px;
+    font-weight:600;
+    color:var(--accent);
+    min-height:16px;
+  }
+  .confetti-container{
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9999;
+    overflow:hidden;
+  }
+  .confetti-piece{
+    position:absolute;
+    top:-12px;
+    width:8px;
+    height:14px;
+    opacity:0.9;
+    border-radius:2px;
+    animation-name:confetti-fall;
+    animation-timing-function:ease-in;
+    animation-fill-mode:forwards;
+  }
+  @keyframes confetti-fall{
+    to{ transform:translateY(100vh) rotate(360deg); opacity:0.4; }
+  }
   footer{
     text-align:center;
     font-size:12px;
@@ -232,6 +261,7 @@
     <span id="progressLabel">0 / 0 done</span>
     <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
   </div>
+  <p class="milestone" id="milestoneLabel"></p>
   <div id="list"></div>
   <div class="notes" id="notesBox"></div>
 </main>
@@ -257,13 +287,13 @@ const DATA = {
       { cat:"Water Heater", text:"Turn on circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-730.jpeg" },
       { cat:"HVAC", text:"Set thermostat to desired mode and temp", video:"" },
       { cat:"Cameras", text:"Text Dad to turn off cameras", video:"" },
-      { cat:"Shed Keys", text:"Open cabinet that contains circuit breakers.\nAlways return keys immediately after opening", video:"" },
-      { cat:"Golf Cart", text:"Check / fill water in batteries; charge as needed\n\nTo use:\nLift front seat to turn on master switch\nTurn on key in dashboard\nSelect Forward/Neutral/Reverse between driver and passenger legs\nSet parking brake when parking\nYou can cross main streets but cannot drive down them - cross only\n\nHave fun!", video:"" },
+      { cat:"Shed Keys", text:"Open cabinet that contains circuit breakers.\nAlways return keys immediately after opening. \nWe do not have duplicates", video:"" },
+      { cat:"Golf Cart", text:"Once per visit: Check / fill water in batteries.\nCharge when done for the day\n\nTo use:\nLift front seat to turn on master switch\nTurn on key in dashboard\nSelect Forward/Neutral/Reverse between driver and passenger legs\nSet parking brake when parking\nYou can cross main streets but cannot drive down them - cross only\n\nHave fun!", video:"https://youtu.be/ytqk_6CRZRI" },
       { cat:"Shades/Blinds", text:"Open shades/blinds as desired", video:"" },
       { cat:"Beds/Bedding/Towels", text:"Fresh sheets should be on your beds", video:"" }
     ],
     "2B": [
-      { cat:"Water Heater", text:"Turn on circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-2B.jpeg" },
+      { cat:"Water Heater", text:"Turn on circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-water-heater-2b-on.jpeg"},
       { cat:"HVAC", text:"Set thermostat to desired mode and temp", video:"" },
       { cat:"Cameras", text:"Text Dad to turn off cameras", video:"" },
       { cat:"Shades/Blinds", text:"Open shades/blinds as desired", video:"" },
@@ -275,20 +305,20 @@ const DATA = {
       { cat:"Water Heater", text:"Turn off circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"" },
       { cat:"HVAC", text:"Set thermostat to:\nWinter - Heat 55 degrees\nSummer - Cool 80 degrees\nSpring/Fall - Off", video:"" },
       { cat:"Cameras", text:"Text Dad to turn on cameras", video:"" },
-      { cat:"Shed Keys", text:"Ensure all 3 sheds are locked", video:"" },
-      { cat:"Golf Cart", text:"Disconnect and unplug charger from wall outlet\n\nWhen done using:\nSet parking brake\nShut off key\nShut off master switch", video:"" },
+      { cat:"Shed Keys", text:"Ensure all 3 sheds are locked and the keys are in 730. \nWe do not have duplicates", video:"" },
+      { cat:"Golf Cart", text:"Unplug charger from golf cart\n\nWhen leaving.\nSet parking brake\nShut off key\nShut off master switch", video:"" },
       { cat:"Lights", text:"Shut off lights", video:"" },
-      { cat:"Garbage", text:"Empty all garbage cans", video:"" },
+      { cat:"Garbage", text:"Empty all garbage cans and take to garbage can by shed", video:"" },
       { cat:"Shades/Blinds", text:"Close all shades/blinds", video:"" },
       { cat:"Beds/Bedding/Towels", text:"Strip beds\nThrow dirty bedding in the washer (if you have time, wash them; otherwise leave in washer)\nPut fresh bedding on the bed", video:"" },
       { cat:"Refrigerators", text:"Remove anything that will spoil", video:"" }
     ],
     "2B": [
-      { cat:"Water Heater", text:"Turn off circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"" },
+      { cat:"Water Heater", text:"Turn off circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-water-heater-2b-off.jpg"},
       { cat:"HVAC", text:"Set thermostat to:\nWinter - Heat 55 degrees\nSummer - Cool 80 degrees\nSpring/Fall - Off\nShut garage HVAC off", video:"" },
       { cat:"Cameras", text:"Text Dad to turn on cameras", video:"" },
       { cat:"Lights", text:"Shut off lights\nLeave motion light on", video:"" },
-      { cat:"Garbage", text:"Empty all garbage cans", video:"" },
+      { cat:"Garbage", text:"Empty all garbage cans and take to the garbage can by the shed", video:"" },
       { cat:"Shades/Blinds", text:"Close all shades/blinds", video:"" },
       { cat:"Beds/Bedding/Towels", text:"Strip beds\nThrow dirty bedding in the washer (if you have time, wash them; otherwise leave in washer)\nPut fresh bedding on the bed", video:"" },
       { cat:"Refrigerators", text:"Remove anything that will spoil\nIf empty, set temp warmer", video:"" }
@@ -297,6 +327,19 @@ const DATA = {
 };
 
 const NOTES = "<strong>Note:</strong> Get the circuit breaker (CB) number for the hot water heater at each building.";
+
+const CATEGORY_EMOJI = {
+  "Water Heater": "🔥",
+  "HVAC": "❄️",
+  "Cameras": "📷",
+  "Shed Keys": "🔑",
+  "Golf Cart": "🚙",
+  "Shades/Blinds": "🪟",
+  "Beds/Bedding/Towels": "🛏️",
+  "Lights": "💡",
+  "Garbage": "🗑️",
+  "Refrigerators": "🧊"
+};
 
 let mode = "open";
 let building = "730";
@@ -344,7 +387,7 @@ function render(){
           <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
         </div>
         <div class="card-body">
-          <p class="card-cat">${item.cat}</p>
+          <p class="card-cat">${CATEGORY_EMOJI[item.cat] ? CATEGORY_EMOJI[item.cat] + " " : ""}${item.cat}</p>
           <p class="card-task">${item.text}</p>
         </div>
         ${(vidUrl || item.image) ? `
@@ -360,7 +403,8 @@ function render(){
       const nowDone = !card.classList.contains("done");
       card.classList.toggle("done", nowDone);
       localStorage.setItem(key, nowDone ? "1" : "0");
-      updateProgress();
+      const justCompleted = updateProgress();
+      if(nowDone && justCompleted) triggerConfetti();
     });
 
     if(vidUrl){
@@ -387,12 +431,41 @@ function render(){
   updateProgress();
 }
 
+function milestoneText(done, total){
+  if(total === 0) return "";
+  const pct = done / total;
+  if(pct === 1) return mode === "open" ? "🎉 House is open — vacation mode: ON" : "🔒 Locked up tight — see you next time!";
+  if(pct === 0) return mode === "open" ? "Let's get this vacation started" : "Time to button things up";
+  if(pct >= 0.5) return "Halfway to the beach";
+  return "Making progress";
+}
+
 function updateProgress(){
   const items = DATA[mode][building];
   let done = 0;
   items.forEach((_, i) => { if(localStorage.getItem(storageKey(i)) === "1") done++; });
   document.getElementById("progressLabel").textContent = `${done} / ${items.length} done`;
   document.getElementById("progressFill").style.width = items.length ? `${(done/items.length)*100}%` : "0%";
+  document.getElementById("milestoneLabel").textContent = milestoneText(done, items.length);
+  return items.length > 0 && done === items.length;
+}
+
+function triggerConfetti(){
+  const colors = ["#3697c4", "#82b2d6", "#d280be", "#feae95", "#f9c4d6", "#deb7e4", "#bfcfe6"];
+  const container = document.createElement("div");
+  container.className = "confetti-container";
+  document.body.appendChild(container);
+  for(let i = 0; i < 60; i++){
+    const piece = document.createElement("div");
+    piece.className = "confetti-piece";
+    piece.style.left = Math.random() * 100 + "vw";
+    piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+    piece.style.animationDelay = (Math.random() * 0.4) + "s";
+    piece.style.animationDuration = (2.2 + Math.random() * 1.2) + "s";
+    piece.style.transform = `rotate(${Math.random() * 360}deg)`;
+    container.appendChild(piece);
+  }
+  setTimeout(() => container.remove(), 3600);
 }
 
 document.getElementById("modeToggle").addEventListener("click", (e) => {
