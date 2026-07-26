@@ -30,11 +30,33 @@
     padding-bottom:60px;
   }
   header{
+    position:relative;
     background:linear-gradient(160deg, var(--deep), var(--deep-dark));
     color:#fff;
     padding:28px 20px 22px;
     border-radius:0 0 22px 22px;
     box-shadow: var(--shadow);
+  }
+  .weather-widget{
+    position:absolute;
+    top:16px;
+    right:16px;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    background:rgba(255,255,255,0.16);
+    padding:6px 12px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .weather-widget .weather-icon{ font-size:16px; line-height:1; }
+  .weather-widget .weather-place{
+    font-weight:500;
+    opacity:.75;
+    font-size:11px;
+    margin-left:2px;
   }
   .eyebrow{
     font-size:12px;
@@ -242,6 +264,11 @@
 <body>
 
 <header>
+  <div class="weather-widget" id="weatherWidget">
+    <span class="weather-icon" id="weatherIcon">🌤️</span>
+    <span id="weatherTemp">--°</span>
+    <span class="weather-place">South Haven</span>
+  </div>
   <p class="eyebrow" id="modeEyebrow">Opening the house</p>
   <h1 id="pageTitle">Opening Checklist</h1>
   <div class="toggle-row">
@@ -343,6 +370,32 @@ const CATEGORY_EMOJI = {
 
 let mode = "open";
 let building = "730";
+
+const WEATHER_CODE_ICON = {
+  0:"☀️", 1:"🌤️", 2:"⛅", 3:"☁️",
+  45:"🌫️", 48:"🌫️",
+  51:"🌦️", 53:"🌦️", 55:"🌦️", 56:"🌦️", 57:"🌦️",
+  61:"🌧️", 63:"🌧️", 65:"🌧️", 66:"🌧️", 67:"🌧️",
+  71:"🌨️", 73:"🌨️", 75:"🌨️", 77:"🌨️",
+  80:"🌦️", 81:"🌧️", 82:"⛈️",
+  85:"🌨️", 86:"🌨️",
+  95:"⛈️", 96:"⛈️", 99:"⛈️"
+};
+
+async function loadWeather(){
+  try{
+    const res = await fetch("https://api.open-meteo.com/v1/forecast?latitude=42.4029&longitude=-86.2732&current=temperature_2m,weather_code&temperature_unit=fahrenheit&timezone=auto");
+    if(!res.ok) throw new Error("weather request failed");
+    const data = await res.json();
+    const temp = Math.round(data.current.temperature_2m);
+    const icon = WEATHER_CODE_ICON[data.current.weather_code] || "🌡️";
+    document.getElementById("weatherIcon").textContent = icon;
+    document.getElementById("weatherTemp").textContent = `${temp}°`;
+  }catch(e){
+    document.getElementById("weatherWidget").style.display = "none";
+  }
+}
+loadWeather();
 
 function embedUrl(url){
   try{
