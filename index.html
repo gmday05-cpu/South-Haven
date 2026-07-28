@@ -183,6 +183,44 @@
     white-space:pre-line;
     margin:0;
   }
+  .step-list{
+    list-style:none;
+    margin:8px 0 0;
+    padding:0;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .step-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .step-num{
+    flex:none;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:linear-gradient(160deg, var(--deep), var(--deep-dark));
+    color:#fff;
+    font-size:12px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .step-icon{
+    flex:none;
+    font-size:16px;
+  }
+  .step-text{
+    font-size:14px;
+    line-height:1.4;
+    color:#3f4d49;
+  }
+  .step-outro{
+    margin-top:10px;
+  }
   .video-link{
     display:inline-flex;
     align-items:center;
@@ -315,7 +353,13 @@ const DATA = {
       { cat:"HVAC", text:"Set thermostat to desired mode and temp", video:"" },
       { cat:"Outside Cameras", text:"Text Dad to turn off security cameras", video:"" },
       { cat:"Shed Keys", text:"In 730, open the cabinet that contains the circuit breaker panel.\nAlways return keys immediately after opening. \nWe do not have duplicates", video:"" },
-      { cat:"Golf Cart", text:"To use:\nLift front seat to turn on master switch\nTurn on key in dashboard\nSelect Forward/Neutral/Reverse between driver and passenger legs\nSet parking brake when parking\nYou can cross main streets but cannot drive down them - cross only\n\nHave fun!\nCharge when done for the day\n\n", video:"https://youtu.be/ytqk_6CRZRI" },
+      { cat:"Golf Cart", text:"Charge when done for the day.", steps:[
+          { icon:"💺", text:"Lift the front seat to flip on the master switch" },
+          { icon:"🔑", text:"Turn the key in the dashboard" },
+          { icon:"↔️", text:"Pick Forward / Neutral / Reverse between the driver & passenger legs" },
+          { icon:"🅿️", text:"Set the parking brake when you park" },
+          { icon:"🚧", text:"Cross main streets only — never drive down them" }
+        ], outro:"Have fun! 🏌️", video:"https://youtu.be/ytqk_6CRZRI" },
       { cat:"Shades/Blinds", text:"Open shades/blinds as desired", video:"" },
       { cat:"Beds/Bedding/Towels", text:"Fresh sheets should be on your beds", video:"" }
     ],
@@ -441,7 +485,17 @@ function render(){
         </div>
         <div class="card-body">
           <p class="card-cat">${CATEGORY_EMOJI[item.cat] ? CATEGORY_EMOJI[item.cat] + " " : ""}${item.cat}</p>
-          <p class="card-task">${item.text}</p>
+          ${item.text ? `<p class="card-task">${item.text}</p>` : ""}
+          ${item.steps ? `
+          <ol class="step-list">
+            ${item.steps.map((s, si) => `
+            <li class="step-item">
+              <span class="step-num">${si + 1}</span>
+              <span class="step-icon">${s.icon || ""}</span>
+              <span class="step-text">${s.text}</span>
+            </li>`).join("")}
+          </ol>` : ""}
+          ${item.outro ? `<p class="card-task step-outro">${item.outro}</p>` : ""}
         </div>
         ${(vidUrl || item.image) ? `
         <div class="card-links">
