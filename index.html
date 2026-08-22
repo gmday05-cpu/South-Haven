@@ -37,10 +37,16 @@
     border-radius:0 0 22px 22px;
     box-shadow: var(--shadow);
   }
-  .weather-widget{
+  .weather-stack{
     position:absolute;
     top:16px;
     right:16px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:6px;
+  }
+  .weather-widget{
     display:flex;
     align-items:center;
     gap:6px;
@@ -302,10 +308,17 @@
 <body>
 
 <header>
-  <div class="weather-widget" id="weatherWidget">
-    <span class="weather-icon" id="weatherIcon">🌤️</span>
-    <span id="weatherTemp">--°</span>
-    <span class="weather-place">South Haven</span>
+  <div class="weather-stack">
+    <div class="weather-widget" id="weatherWidget">
+      <span class="weather-icon" id="weatherIcon">🌤️</span>
+      <span id="weatherTemp">--°</span>
+      <span class="weather-place">South Haven Air Temp</span>
+    </div>
+    <div class="weather-widget" id="waterWidget">
+      <span class="weather-icon">🌊</span>
+      <span id="waterTemp">--°</span>
+      <span class="weather-place">South Haven Buoy</span>
+    </div>
   </div>
   <p class="eyebrow" id="modeEyebrow">Opening the house</p>
   <h1 id="pageTitle">Opening Checklist</h1>
@@ -450,6 +463,25 @@ async function loadWeather(){
   }
 }
 loadWeather();
+
+// water-temp.json is written by a scheduled GitHub Action (see
+// .github/workflows/update-water-temp.yml) that fetches the South Haven
+// buoy (NDBC 45168) server-side and commits the parsed reading. Reading
+// it here is a same-origin fetch, since it lives in this repo alongside
+// the page itself — no CORS/proxy involved.
+async function loadWaterTemp(){
+  try{
+    const res = await fetch("water-temp.json", { cache: "no-store" });
+    if(!res.ok) throw new Error("water-temp.json missing");
+    const data = await res.json();
+    const ageMs = Date.now() - new Date(data.observedAt).getTime();
+    if(isNaN(ageMs) || ageMs > 3 * 60 * 60 * 1000) throw new Error("reading too stale");
+    document.getElementById("waterTemp").textContent = `${data.tempF}°`;
+  }catch(e){
+    document.getElementById("waterWidget").style.display = "none";
+  }
+}
+loadWaterTemp();
 
 function embedUrl(url){
   try{
