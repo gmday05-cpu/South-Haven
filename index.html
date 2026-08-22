@@ -351,7 +351,17 @@ const DATA = {
     "730": [
       { cat:"Water Heater", text:"Turn on circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-730.jpeg" },
       { cat:"HVAC", text:"Set thermostat to desired mode and temp", video:"" },
-      { cat:"Outside Cameras", text:"Text Dad to turn off security cameras", video:"" },
+      { cat:"Shades/Blinds", text:"Open shades/blinds as desired", video:"" },
+      { cat:"Beds/Bedding/Towels", text:"Fresh sheets should be on your beds", video:"" }
+    ],
+    "2B": [
+      { cat:"Water Heater", text:"Turn on circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-water-heater-2b-on.jpeg"},
+      { cat:"HVAC", text:"Set thermostat to desired mode and temp", video:"" },
+      { cat:"Shades/Blinds", text:"Open shades/blinds as desired", video:"" },
+      { cat:"Beds/Bedding/Towels", text:"Fresh sheets should be on your beds", video:"" }
+    ],
+    "both": [
+      { cat:"Outside Cameras", text:"Text Dad to turn off the security cameras", video:"" },
       { cat:"Shed Keys", text:"In 730, open the cabinet that contains the circuit breaker panel.\nAlways return keys immediately after opening. \nWe do not have duplicates", video:"" },
       { cat:"Golf Cart", text:"Charge when done for the day.", steps:[
           { icon:"💺", text:"Lift the front seat to flip on the master switch" },
@@ -360,26 +370,16 @@ const DATA = {
           { icon:"🅿️", text:"Set the parking brake when you park" },
           { icon:"🚧", text:"Cross main streets only — never drive down them" }
         ], outro:"Have fun! 🏌️", video:"https://youtu.be/ytqk_6CRZRI" },
-      { cat:"Shades/Blinds", text:"Open shades/blinds as desired", video:"" },
-      { cat:"Beds/Bedding/Towels", text:"Fresh sheets should be on your beds", video:"" }
-    ],
-    "2B": [
-      { cat:"Water Heater", text:"Turn on circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-water-heater-2b-on.jpeg"},
-      { cat:"HVAC", text:"Set thermostat to desired mode and temp", video:"" },
-      { cat:"Outside Cameras", text:"Text Dad to turn off the security cameras", video:"" },
-      { cat:"Shades/Blinds", text:"Open shades/blinds as desired", video:"" },
-      { cat:"Beds/Bedding/Towels", text:"Fresh sheets should be on your beds", video:"" }
+      { cat:"Firepit Lights", text:"Plug in firepit lights in the bike shed.\nSame outlet as the golf cart charger.", video:"" },
+      { cat:"Outdoor Shower", text:"Water to the outdoor shower is from the outdoor spigot under the 2B air conditioner.", video:"" },
+      { cat:"Fly the Flag", text:"Fly the flag on 2B", video:"" }
     ]
   },
   close: {
     "730": [
       { cat:"Water Heater", text:"Turn off circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"" },
       { cat:"HVAC", text:"Set thermostat to:\nWinter - Heat 55 degrees\nSummer - Cool 80 degrees\nSpring/Fall - Off", video:"" },
-      { cat:"Outside Cameras", text:"Text Dad to turn on security cameras", video:"" },
-      { cat:"Shed Keys", text:"Ensure all 3 sheds are locked and the keys are in 730. \nWe do not have duplicates", video:"" },
-      { cat:"Golf Cart", text:"When you are leaving: \nUnplug charger from golf cart\nSet parking brake\nShut off key\nShut off master switch", video:"" },
       { cat:"Lights", text:"Shut off lights", video:"" },
-      { cat:"Garbage", text:"Empty all garbage cans and take to garbage can by shed", video:"" },
       { cat:"Shades/Blinds", text:"Close all shades/blinds", video:"" },
       { cat:"Beds/Bedding/Towels", text:"Strip beds\nThrow dirty bedding in the washer (if you have time, wash them; otherwise leave in washer)\nPut fresh bedding on the bed", video:"" },
       { cat:"Refrigerators", text:"Remove anything that will spoil", video:"" }
@@ -387,12 +387,19 @@ const DATA = {
     "2B": [
       { cat:"Water Heater", text:"Turn off circuit breaker for hot water heater.\n*Leave all other breakers as found", video:"", image:"images/circuit-breakers-water-heater-2b-off.jpg"},
       { cat:"HVAC", text:"Set thermostat to:\nWinter - Heat 55 degrees\nSummer - Cool 80 degrees\nSpring/Fall - Off\nShut garage HVAC off", video:"" },
-      { cat:"Outside Cameras", text:"Text Dad to turn on security cameras", video:"" },
       { cat:"Lights", text:"Shut off lights\nLeave motion light on", video:"" },
-      { cat:"Garbage", text:"Empty all garbage cans and take to the garbage can by the shed", video:"" },
       { cat:"Shades/Blinds", text:"Close all shades/blinds", video:"" },
       { cat:"Beds/Bedding/Towels", text:"Strip beds\nThrow dirty bedding in the washer (if you have time, wash them; otherwise leave in washer)\nPut fresh bedding on the bed", video:"" },
       { cat:"Refrigerators", text:"Remove anything that will spoil", video:"" }
+    ],
+    "both": [
+      { cat:"Outside Cameras", text:"Text Dad to turn on the security cameras", video:"" },
+      { cat:"Shed Keys", text:"Ensure all 3 sheds are locked and the keys are in 730. \nWe do not have duplicates", video:"" },
+      { cat:"Golf Cart", text:"When you are leaving: \nUnplug charger from golf cart\nSet parking brake\nShut off key\nShut off master switch", video:"" },
+      { cat:"Garbage", text:"Empty all garbage cans and take to the garbage can by the shed", video:"" },
+      { cat:"Firepit Lights", text:"Unplug firepit lights in the bike shed.", video:"" },
+      { cat:"Outdoor Shower", text:"Turn off outdoor spigot to the outdoor shower.", video:"" },
+      { cat:"Fly the Flag", text:"Take flag down and put in screened porch.", video:"" }
     ]
   }
 };
@@ -402,14 +409,17 @@ const DATA = {
 const CATEGORY_EMOJI = {
   "Water Heater": "🔥",
   "HVAC": "❄️",
-  "Cameras": "📷",
+  "Outside Cameras": "📷",
   "Shed Keys": "🔑",
   "Golf Cart": "🚙",
   "Shades/Blinds": "🪟",
   "Beds/Bedding/Towels": "🛏️",
   "Lights": "💡",
   "Garbage": "🗑️",
-  "Refrigerators": "🧊"
+  "Refrigerators": "🧊",
+  "Firepit Lights": "🔥",
+  "Outdoor Shower": "🚿",
+  "Fly the Flag": "<svg width=\"18\" height=\"13\" viewBox=\"0 0 20 15\" style=\"vertical-align:-2px\"><rect width=\"20\" height=\"15\" fill=\"#B22234\"/><g fill=\"#fff\"><rect y=\"1.15\" width=\"20\" height=\"1.15\"/><rect y=\"3.46\" width=\"20\" height=\"1.15\"/><rect y=\"5.77\" width=\"20\" height=\"1.15\"/><rect y=\"8.08\" width=\"20\" height=\"1.15\"/><rect y=\"10.38\" width=\"20\" height=\"1.15\"/><rect y=\"12.69\" width=\"20\" height=\"1.15\"/></g><rect width=\"8\" height=\"8.08\" fill=\"#3C3B6E\"/></svg>"
 };
 
 let mode = "open";
@@ -457,7 +467,22 @@ function embedUrl(url){
   return null;
 }
 
-function storageKey(i){ return `checklist:${mode}:${building}:${i}`; }
+function slug(s){ return s.toLowerCase().replace(/[^a-z0-9]+/g, "-"); }
+
+// Items in DATA[mode].both apply to whichever building is selected, and
+// share a single checked-state across both buildings (same golf cart,
+// same shed keys either way).
+function getItems(){
+  return [
+    ...DATA[mode][building].map(it => ({ ...it, shared:false })),
+    ...(DATA[mode].both || []).map(it => ({ ...it, shared:true }))
+  ];
+}
+
+function storageKey(item){
+  const scope = item.shared ? "both" : building;
+  return `checklist:${mode}:${scope}:${slug(item.cat)}`;
+}
 
 function render(){
   document.getElementById("pageTitle").textContent = (mode === "open" ? "Opening" : "Closing") + " Checklist";
@@ -465,12 +490,12 @@ function render(){
   document.querySelectorAll("#modeToggle button").forEach(b => b.classList.toggle("active", b.dataset.mode === mode));
   document.querySelectorAll("#buildingToggle button").forEach(b => b.classList.toggle("active", b.dataset.building === building));
 
-  const items = DATA[mode][building];
+  const items = getItems();
   const list = document.getElementById("list");
   list.innerHTML = "";
 
   items.forEach((item, i) => {
-    const key = storageKey(i);
+    const key = storageKey(item);
     const isDone = localStorage.getItem(key) === "1";
 
     const card = document.createElement("div");
@@ -534,7 +559,7 @@ function render(){
     list.appendChild(card);
   });
 
-  document.getElementById("notesBox").innerHTML = NOTES;
+  document.getElementById("notesBox").innerHTML = typeof NOTES !== "undefined" ? NOTES : "";
   updateProgress();
 }
 
@@ -548,9 +573,9 @@ function milestoneText(done, total){
 }
 
 function updateProgress(){
-  const items = DATA[mode][building];
+  const items = getItems();
   let done = 0;
-  items.forEach((_, i) => { if(localStorage.getItem(storageKey(i)) === "1") done++; });
+  items.forEach(item => { if(localStorage.getItem(storageKey(item)) === "1") done++; });
   document.getElementById("progressLabel").textContent = `${done} / ${items.length} done`;
   document.getElementById("progressFill").style.width = items.length ? `${(done/items.length)*100}%` : "0%";
   document.getElementById("milestoneLabel").textContent = milestoneText(done, items.length);
