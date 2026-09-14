@@ -377,7 +377,7 @@ const DATA = {
       { cat:"Outside Cameras", text:"Text Dad to turn off the security cameras", video:"" },
       { cat:"Shed Keys", text:"In 730, open the cabinet that contains the circuit breaker panel.\nAlways return keys immediately after opening. \nWe do not have duplicates", video:"" },
       { cat:"Golf Cart", text:"Charge when done for the day.", steps:[
-          { icon:"💺", text:"Lift the front seat to flip the master (tow) switch to on" },
+          { icon:"💺", text:"Lift the front seat to flip the master (tow) switch (under the seat) to on" },
           { icon:"🔑", text:"Turn the key in the dashboard" },
           { icon:"↔️", text:"Pick Forward / Neutral / Reverse between the driver & passenger legs" },
           { icon:"🅿️", text:"Set the parking brake when you park" },
@@ -409,7 +409,7 @@ const DATA = {
     "both": [
       { cat:"Outside Cameras", text:"Text Dad to turn on the security cameras", video:"" },
       { cat:"Shed Keys", text:"Ensure all 3 sheds are locked and the keys are in 730. \nWe do not have duplicates", video:"" },
-      { cat:"Golf Cart", text:"When you are leaving: \nUnplug charger from golf cart\nSet parking brake\nShut off key\nLeave the master (tow) switch on", video:"" },
+      { cat:"Golf Cart", text:"When you are leaving: \n• Unplug charger from golf cart\n• Set parking brake\n• Shut off key\n• Leave the master (tow) switch (under the seat) on", video:"" },
       { cat:"Garbage", text:"Empty all garbage cans and take to the garbage can by the shed", video:"" },
       { cat:"Firepit Lights", text:"Unplug firepit lights in the bike shed.", video:"" },
       { cat:"Outdoor Shower", text:"Turn off outdoor spigot to the outdoor shower.", video:"" },
@@ -476,7 +476,7 @@ async function loadWaterTemp(){
     if(!res.ok) throw new Error("water-temp.json missing");
     const data = await res.json();
     const ageMs = Date.now() - new Date(data.observedAt).getTime();
-    if(isNaN(ageMs) || ageMs > 3 * 60 * 60 * 1000) throw new Error("reading too stale");
+    if(isNaN(ageMs) || ageMs > 6 * 60 * 60 * 1000) throw new Error("reading too stale");
     document.getElementById("waterTemp").textContent = `${data.tempF}°`;
   }catch(e){
     document.getElementById("waterWidget").style.display = "none";
